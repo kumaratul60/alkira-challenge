@@ -4,7 +4,7 @@
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
-  border-radius: 7px;
+  border-radius: 0.25rem;
   max-width: 520px;
 }
 .search {
@@ -12,4 +12,5 @@
   outline: none;
   margin-left: 0.5rem;
   width: 100%;
+  /* cursor: pointer; */
 }

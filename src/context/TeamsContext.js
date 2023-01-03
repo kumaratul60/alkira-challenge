@@ -1,7 +1,7 @@
 import {
-  useContext,
   useState,
   useEffect,
+  useContext,
   createContext,
   useReducer,
 } from "react";
@@ -47,39 +47,49 @@ const TeamsProvider = ({ children }) => {
   const currentTeams = searchedData.slice(indexOfFirstPost, indexOfLastPost);
 
   useEffect(() => {
-    (async () => {
-      await axios
-        .get(teamsURL)
-        .then((res) => res.data)
-        .then((result) => {
-          setTeams(result.data);
-          dispatchData({ type: "LOADING", payload: false });
-        });
-    })();
+    fetchTeams()
   }, []);
 
+  const fetchTeams = async () => {
+    try {
+      const teamsData = await axios.get(teamsURL)
+      const teamsResponse = await teamsData.data;
+      // console.log(teamsResponse.data);
+      setTeams(teamsResponse.data);
+      dispatchData({ type: "LOADING", payload: false });
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+
   useEffect(() => {
-    (async () => {
-      await axios
-        .get(gamesURL)
-        .then((res) => res.data)
-        .then((result) => {
-          setGames(result.data);
-        });
-    })();
+    fetchGame()
   }, []);
+
+  const fetchGame = async () => {
+    try {
+      const gameData = await axios.get(gamesURL)
+      const gameResponse = await gameData.data;
+      // console.log(gameResponse.data);
+      setGames(gameResponse.data);
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
 
   useEffect(() => {
     setTeamDetails(games.find((game) => game.home_team.id === selectedTeam));
   }, [selectedTeam, games]);
 
-  function changePageHandler(pageNum) {
+  const changePageHandler = (pageNum) => {
     dispatchData({ type: "CURR_PAGE", payload: pageNum });
   }
 
   return (
     <TeamsContext.Provider
-      value={{
+      value={ {
         teams,
         showCanvas,
         setShowCanvas,
@@ -91,9 +101,9 @@ const TeamsProvider = ({ children }) => {
         selectedTeam,
         setSelectedTeam,
         teamDetails,
-      }}
+      } }
     >
-      {children}
+      { children }
     </TeamsContext.Provider>
   );
 };

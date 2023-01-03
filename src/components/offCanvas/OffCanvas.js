@@ -4,7 +4,7 @@ import "./OffCanvas.css";
 
 export const OffCanvas = () => {
   const { showCanvas, setShowCanvas, teamDetails } = useTeams();
-  console.log(teamDetails);
+  // console.log(teamDetails);
   return (
     <>
       <Offcanvas show={ showCanvas } onHide={ setShowCanvas } placement={ "end" }>
