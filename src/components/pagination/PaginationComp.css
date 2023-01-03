@@ -1,0 +1,10 @@
+.pagination-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-right: 3rem;
+}
+.active > .page-link {
+  background-color: #074684;
+}
